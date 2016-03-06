@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import csv, re
+import csv, re, collections
 
 archivo_dibujitos = "../simbolos/UGRcompleta.csv"
 archivo_datos = "../listas/201415matriculasgradoramas.csv"
@@ -19,6 +19,7 @@ def crea_url(nombre):
 def crea_combo(diccionario):
 
     combo = '<select onchange="location.href=this.options[this.selectedIndex].value" name="carreras" size="1"><option value="#" selected>ELIJA UNA</option><option value="index.html">Todas</option>'
+    diccionario = collections.OrderedDict(sorted(diccionario.items()))
 
     for pag in diccionario:
         combo = combo + '<option value="' + crea_url(pag) + '">' + pag + '</option>'
