@@ -65,7 +65,7 @@ with open(archivo_datos, 'r') as datos:
 
         churro_commpleto = churro_commpleto + churro_hombres + churro_mujeres
 
-        dicc_stats[fila[1]] = "Del total de {0} matriculados: <span class='hombres'>{1}</span> hombres (<span class='hombres'>{2:.2f} %</span>), <span class='mujeres'>{3}</span> mujeres (<span class='mujeres'>{4:.2f}</span> %)".format(fila[4], fila[2], float(fila[2])/int(fila[4])*100, fila[3], float(fila[3])/int(fila[4])*100)
+        dicc_stats[fila[1]] = "Del total de {0} matriculados: <span class='hombres'>{1}</span> hombres (<span class='hombres'>{2:.2f} %</span>), <span class='mujeres'>{3}</span> mujeres (<span class='mujeres'>{4:.2f} %</span>)".format(fila[4], fila[2], float(fila[2])/int(fila[4])*100, fila[3], float(fila[3])/int(fila[4])*100)
 
 
 
