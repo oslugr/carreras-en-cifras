@@ -1,11 +1,16 @@
 # Libreria de graficos
 library(ggplot2)
+# Librería para hacer la distancia entre dos strings
+library(stringdist)
+
+
+# Limpiamos el entorno
 rm ( list = ls() )
 
 # Suponemos utf8
 trabajando <- read.csv2(  "./listas/INE.csv", 
                           col.names=c("carreras",rep(c("hombres","mujeres"),3)),
-                          header = FALSE, 
+                          header = TRUE, 
                           sep=",",
                           dec=".",
                           skip=1,
@@ -25,26 +30,30 @@ graduados <- na.omit( graduados )
 
 
 # Deja los dos datasets con solo las asignaturas comunes
-trabajando.titul <- tolower( trabajando$carreras )
-graduados.titul <- tolower( graduados$carreras )
+trabajando.titul <- trabajando$carreras 
+graduados.titul <- graduados$carreras
 comunes <- intersect( trabajando.titul, graduados.titul)
 
-trabajando <- trabajando[ which( is.element( 
-                                            tolower( trabajando$carreras ),
-                                            comunes 
-                                            )
-                                )
-                        , ]
-graduados <- graduados[ which( is.element( 
-                                          tolower( graduados$carreras ), 
-                                          comunes 
-                                          ) 
-                               ) 
-                        , ]
+
+tol <- 3.0
+
+gradpair <- function(x){  d<- stringdist(tolower(x), tolower(graduados.titul), method='lv')
+                          argmin <- which.min (d)
+                          
+                          if (d[argmin]<=tol){ 
+                              list(x, graduados.titul[argmin])
+                          }
+}
+
+v <- lapply (trabajando.titul, gradpair)
+v <- v[! unlist(lapply(v, is.null))]
+v <- unlist(v)
+
+
+trabajando <- trabajando[ is.element( trabajando$carreras, v ), ]
+graduados <- graduados[ is.element( graduados$carreras, v ), ]
 trabajando <- trabajando[ order( trabajando$carreras ), ]
 graduados <- graduados[ order( graduados$carreras ), ]
-  
-
 
 
 # data frame para representar ratios
