@@ -23,7 +23,8 @@ def crea_combo(diccionario):
     diccionario = collections.OrderedDict(sorted(diccionario.items()))
 
     for pag in diccionario:
-        combo = combo + '<option value="' + crea_url(pag) + '">' + pag + '</option>'
+        if pag != "TODAS":
+            combo = combo + '<option value="' + crea_url(pag) + '">' + pag + '</option>'
 
     combo = combo + '</select>'
 
