@@ -19,7 +19,7 @@ def crea_url(nombre):
 
 def crea_combo(diccionario):
 
-    combo = '<select onchange="location.href=this.options[this.selectedIndex].value" name="carreras" size="1"><option value="#" selected>ELIJA UNA</option><option value="index.html">Todas</option>'
+    combo = '<select onchange="location.href=this.options[this.selectedIndex].value" name="carreras" size="1"><option value="#" selected>ELIJA UNA</option><option value="TODAS.html">Todas</option>'
     diccionario = collections.OrderedDict(sorted(diccionario.items()))
 
     for pag in diccionario:
