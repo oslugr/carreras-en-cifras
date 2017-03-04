@@ -1,7 +1,8 @@
 ---
-title: "Carreras y género"
+title: "Carreras en cifras"
 output: 
   html_document: 
+    number_sections: yes
     toc: yes
 knit: (function(inputFile, encoding) { 
       out_dir <- '../docs';
@@ -25,6 +26,8 @@ library(colorspace)
 library(DT)
 library(data.table)
 ```
+
+# Carreras y género
 
 ```{r read_data}
 m <- read.csv("../data/201516matriculasgradoramas.csv")
