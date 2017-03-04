@@ -56,3 +56,5 @@ plot_ly(matriculas, x = ~mujeres, y = ~hombres, type = "scatter", mode = "marker
         marker = list(size = sizes, sizemode = "area", color = rainbow_hcl(length(sizes)))) %>%
   layout(title = "Matriculaciones en carreras por género")
 ```
+
+

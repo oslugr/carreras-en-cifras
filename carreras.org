@@ -1,0 +1,117 @@
+* Tasas académicas
+** Datos
+#+BEGIN_SRC R
+  dataset = read.csv("data/tasasacademicas2015.csv")
+  colnames(dataset) = 
+    c("titulacion", 
+      "tasaRendimiento", 
+      "tasaExito", 
+      "tasaAbandonoInicial", 
+      "tasaEficiencia", 
+      "tasaGraduacion", 
+      "tasaAbandono")
+
+  dataset
+#+END_SRC
+
+#+RESULTS:
+| GRADUADO/A EN BIOLOGÍA                                       | 74,02 | 83,12 | 12,27 | 98    | 32,73 | 30    |
+| GRADUADO/A EN ODONTOLOGÍA                                    | 89,42 | 94,77 | 10,26 | 97,43 |       |       |
+| GRADUADO/A EN NUTRICIÓN HUMANA Y DIETÉTICA                   | 84    | 89,4  | 9,47  | 98,54 | 50,51 | 31,31 |
+| GRADUADO/A EN CIENCIA Y TECNOLOGÍA DE LOS ALIMENTOS          | 75,4  | 82,27 | 11,94 | 94,28 |       |       |
+| GRADUADO/A EN FARMACIA                                       | 63,37 | 75,34 | 8,82  | 97,15 |       |       |
+| GRADUADO/A EN INGENIERÍA ELECTRÓNICA INDUSTRIAL              | 66,97 | 77,88 | 17,19 | 96,64 |       |       |
+| GRADUADO/A EN CIENCIAS AMBIENTALES                           | 59    | 72,26 | 34,07 | 93,75 | 16,54 | 47,37 |
+| GRADUADO/A EN ENFERMERÍA                                     | 93,17 | 96,25 | 13,43 | 98,61 | 72    | 23,2  |
+| GRADUADO/A EN GEOGRAFÍA Y GESTIÓN DEL TERRITORIO             | 71,16 | 80,63 | 20    | 97,78 | 18,18 | 50,91 |
+| GRADUADO/A EN ARQUITECTURA                                   | 68,71 | 81,95 | 15,89 | 94,54 |       |       |
+| GRADO EN INGENIERIA EN EDIFICACIÓN (CURSO PUENTE)            | 40,82 | 64,52 |       |       |       |       |
+| GRADUADO/A EN CIENCIAS POLÍTICAS Y DE LA ADMINISTRACIÓN      | 68,07 | 80,66 | 36,3  | 99,38 | 19,05 | 48,3  |
+| GRADUADO/A EN CIENCIAS POLÍTICAS Y DE LA ADMINIST. Y DERECHO | 69,47 | 80,03 | 21,38 |       |       |       |
+| GRADUADO/A EN SOCIOLOGÍA                                     | 72,84 | 82,02 | 30,28 | 93,51 | 15,27 | 51,91 |
+| GRADUADO/A EN INGENIERÍA QUÍMICA                             | 59,89 | 72,27 | 35,4  | 96,15 | 26,13 | 45,05 |
+| GRADUADO/A EN INGENIERÍA DE TECNOLOGÍAS DE TELECOMUNICACIÓN  | 74,51 | 83,73 | 15,53 | 98,05 | 40,86 | 23,66 |
+| GRADUADO/A EN MEDICINA                                       | 92,14 | 95,9  | 3,6   |       |       |       |
+| GRADUADO/A EN ESTADÍSTICA                                    | 57,33 | 75,18 | 29,41 | 96,39 | 13,11 | 62,3  |
+| GRADUADO/A EN COMUNICACIÓN AUDIOVISUAL                       | 93,15 | 96,74 | 5,8   | 99,03 | 43,08 | 30,77 |
+| GRADUADO/A EN ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS-DERECHO | 83    | 88,93 | 15,33 |       |       |       |
+| GRADUADO/A EN EDIFICACIÓN                                    | 61,01 | 77,25 | 33,1  | 97,56 | 18,82 | 26,47 |
+| GRADUADO/A EN INFORMACIÓN Y DOCUMENTACIÓN                    | 77,8  | 86,33 | 24,49 | 98,36 | 19,12 | 41,18 |
+| GRADUADO/A EN FINANZAS Y CONTABILIDAD                        | 66,75 | 75,65 | 12,03 | 96,15 | 29,6  | 23,2  |
+| GRADUADO/A EN ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS         | 73,24 | 82,53 | 6,74  | 96,51 | 37,12 | 22,73 |
+| GRADUADO/A EN MARKETING E INVESTIGACIÓN DE MERCADOS          | 74,7  | 81,58 | 9,76  | 96,82 | 29,46 | 34,88 |
+| GRADUADO/A EN INGENIERÍA CIVIL                               | 57,24 | 71,55 | 16,49 | 96,93 | 34,41 | 19,35 |
+| GRADUADO/A EN TURISMO                                        | 81,59 | 88,1  | 4,29  | 97,43 | 30,37 | 30,37 |
+| GRADUADO/A EN ECONOMÍA                                       | 68,12 | 78,1  | 12,93 | 97,11 | 23,43 | 33,05 |
+| GRADUADO/A EN FISIOTERAPIA                                   | 93,88 | 98,08 | 16,07 | 99,27 | 70,59 | 17,65 |
+| GRADUADO/A EN DERECHO                                        | 69,09 | 79,92 | 16,3  | 96,02 | 29,98 | 28,6  |
+| GRADUADO/A EN TERAPIA OCUPACIONAL                            | 91,72 | 94,28 | 13,11 | 99,67 | 62,07 | 24,14 |
+| GRADUADO/A EN EDUCACIÓN SOCIAL                               | 94,52 | 97,49 | 6,25  | 99,22 | 46,34 | 32,52 |
+| GRADUADO/A EN CRIMINOLOGÍA                                   | 89,95 | 93,94 | 9,46  |       |       |       |
+| GRADUADO/A EN TRABAJO SOCIAL                                 | 89,39 | 93,62 | 8,05  | 98,55 | 45,45 | 38,64 |
+| GRADUADO/A EN BIOTECNOLOGÍA                                  | 88,5  | 93,85 |       |       |       |       |
+| GRADUADO/A EN TRADUCCIÓN E INTERPRETACIÓN                    | 85,07 | 91,75 | 9,12  | 98,25 | 61,75 | 15,54 |
+| GRADUADO/A EN EDUCACIÓN PRIMARIA (BILINGÜE)                  | 93,93 | 97,03 | 2,99  | 98,12 |       |       |
+| GRADUADO/A EN EDUCACIÓN PRIMARIA                             | 91,7  | 94,68 | 7,69  | 98,51 | 62,13 | 17,11 |
+| GRADUADO/A EN EDUCACIÓN INFANTIL                             | 95,74 | 97,62 | 4,59  | 97,76 | 75,43 | 15,92 |
+| GRADUADO/A EN RELACIONES LABORALES Y RECURSOS HUMANOS        | 69,32 | 80,48 | 24,57 | 97,64 | 22,28 | 37,13 |
+| GRADUADO/A EN BELLAS ARTES                                   | 86,53 | 95,85 | 12,29 | 98,47 | 42,79 | 27,93 |
+| GRADUADO/A EN BIOQUÍMICA                                     | 93,29 | 95,48 | 16    | 99,06 | 60,71 | 26,79 |
+| GRADUADO/A EN FILOSOFÍA                                      | 70,6  | 86,1  | 25,71 | 96,39 | 24,24 | 51,52 |
+| GRADUADO/A EN PSICOLOGÍA                                     | 86,53 | 91,14 | 8,9   | 98,2  | 55,59 | 19,23 |
+| GRADUADO/A EN CONSERVACIÓN Y RESTAURACIÓN DE BIENES CULTURAL | 86,52 | 93,88 | 16    | 99,5  | 35,85 | 32,08 |
+| GRADUADO/A EN ARQUEOLOGÍA                                    | 73,43 | 84,5  |       |       |       |       |
+| GRADUADO/A EN FÍSICA                                         | 57,74 | 75,09 | 34,02 | 98,66 | 28,75 | 48,75 |
+| GRADUADO/A EN GEOLOGÍA                                       | 60,47 | 70,34 | 36,23 | 100   | 23,53 | 51,47 |
+| GRADUADO/A EN MATEMÁTICAS                                    | 63,9  | 75,83 | 33,33 | 97,74 | 25,44 | 49,12 |
+| GRADUADO/A EN LENGUAS MODERNAS Y SUS LITERATURAS             | 79,63 | 89,19 | 9,3   | 98,04 | 45,61 | 35,09 |
+| GRADUADO/A EN FILOLOGÍA CLÁSICA                              | 60,84 | 75,43 | 31,25 | 99,72 | 21,05 | 57,89 |
+| GRADUADO/A EN ESTUDIOS FRANCESES                             | 71,53 | 79,13 | 37,14 | 95,82 | 34,29 | 54,29 |
+| GRADUADO/A EN ESTUDIOS ÁRABES E ISLÁMICOS                    | 69,01 | 86,04 | 37,78 | 97,56 | 6,45  | 48,39 |
+| GRADUADO/A EN FILOLOGÍA HISPÁNICA                            | 83,35 | 92,01 | 18,31 | 97,98 | 50,72 | 33,33 |
+| GRADUADO/A EN ESTUDIOS INGLESES                              | 73,71 | 81,89 | 14,69 | 99,3  | 37,86 | 25,71 |
+| GRADUADO/A EN LOGOPEDIA                                      | 91,74 | 94,62 | 5,63  | 98,77 | 50    | 37,1  |
+| GRADUADO/A EN ÓPTICA Y OPTOMETRÍA                            | 66,5  | 72,12 | 21,85 | 93,06 | 43,33 | 21,67 |
+| GRADUADO/A EN CIENCIAS DE LA ACTIVIDAD FÍSICA Y DEL DEPORTE  | 87,9  | 92,22 | 4,26  | 96,96 | 53,8  | 17,93 |
+| GRADUADO/A EN LITERATURAS COMPARADAS                         | 73,48 | 87,79 | 31,11 | 100   | 22,58 | 54,84 |
+| GRADUADO/A EN QUÍMICA                                        | 64,43 | 77,69 | 32,53 | 97,49 | 25,64 | 37,18 |
+| GRADUADO/A EN HISTORIA                                       | 75,12 | 87,05 | 18,84 | 96,7  | 26,97 | 46,71 |
+| GRADUADO/A EN HISTORIA DEL ARTE                              | 74,47 | 84,4  | 34,65 | 97,78 | 26,43 | 43,57 |
+| GRADUADO/A EN ANTROPOLOGÍA SOCIAL Y CULTURAL                 | 79,54 | 90,89 | 22,22 | 98,52 |       |       |
+| GRADUADO/A EN INGENIERÍA INFORMÁTICA                         | 57,76 | 72,42 | 32,85 | 93,82 | 9,73  | 54,28 |
+| GRADUADO/A EN INGENIERÍA INFORMÁTICA Y MATEMÁTICAS           | 76,33 | 83,71 | 40    |       |       |       |
+| GRADUADO/A EN PEDAGOGÍA                                      | 92,24 | 96,08 | 5,17  | 97,86 | 43,44 | 39,34 |
+| GRADUADO/A EN HISTORIA Y CIENCIAS DE LA MÚSICA               | 76,22 | 87,12 | 18,75 | 96,71 | 25,33 | 48    |
+| GRADUADO/A EN ENFERMERÍA (CEUTA)                             | 92,89 | 94,7  | 25,37 | 94,51 | 46,67 | 39,26 |
+| GRADUADO/A EN EDUCACIÓN SOCIAL (CEUTA)                       | 90,09 | 95,08 | 13,33 | 98,25 |       |       |
+| GRADUADO/A EN ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS (CEUTA) | 77,87 | 86,71 | 10,13 | 93,75 | 27,78 | 52,78 |
+| GRADUADO/A EN EDUCACIÓN PRIMARIA (CEUTA)                     | 79,91 | 88,69 | 15,58 | 91,19 | 31,68 | 45,54 |
+| GRADUADO/A EN EDUCACIÓN INFANTIL (CEUTA)                     | 89,1  | 93,09 | 15,09 | 97,09 | 32,08 | 45,28 |
+| GRADUADO/A EN INGENIERÍA INFORMÁTICA (CEUTA)                 | 54,28 | 65,71 | 10    |       | 0     | 83,33 |
+| GRADUADO/A EN ENFERMERÍA (MELILLA)                           | 88,66 | 90,84 | 12,9  | 94,12 | 68,33 | 11,67 |
+| GRADUADO/A EN EDUCACIÓN SOCIAL (MELILLA)                     | 85,86 | 92,74 | 17,24 | 92,62 |       |       |
+| GRADUADO ADMINISTRACIÓN Y DIRECCIÓN EMPRESAS Y DCHO MELILLA  | 54,55 | 72,6  |       |       |       |       |
+| GRADUADO EN ADMINISTRACIÓN Y DIRECCIÓN DE EMPRESAS (MELILLA) | 69,39 | 82,27 | 32,84 | 96,1  | 23,53 | 52,94 |
+| MELILLA                                                      | 75,34 | 100   |       |       |       |       |
+| MELILLA                                                      | 100   | 100   |       |       |       |       |
+| GRADUADO/A EN GESTIÓN Y ADMINISTRACIÓN PÚBLICA (MELILLA)     | 72,71 | 85,27 | 18,75 |       | 6,67  | 86,67 |
+| GRADUADO/A EN EDUCACIÓN PRIMARIA (MELILLA)                   | 74,67 | 81,6  | 31,51 | 94,61 | 25,97 | 55,84 |
+| GRADUADO/A EN EDUCACIÓN INFANTIL (MELILLA)                   | 83,06 | 90,27 | 32,26 | 97,26 | 31,71 | 53,66 |
+| GRADUADO/A EN RELACIONES LABORALES Y RECURSOS HUMANOS (MEL.) | 74,86 | 87,25 | 20,45 | 96,39 | 22,22 | 55,56 |
+| GRADUADO/A CC ACT FÍSICA Y ED.PRIMA (MELILLA)                | 79,94 | 83,99 |       |       |       |       |
+* Plotly
+#+BEGIN_SRC R
+library(plotly)
+set.seed(100)
+d <- diamonds[sample(nrow(diamonds), 1000), ]
+p <- plot_ly(d, x = ~carat, y = ~price, color = ~carat,
+        size = ~carat, text = ~paste("Clarity: ", clarity))
+
+htmlwidgets::saveWidget(p, "testplotly.html")
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_EXPORT html
+<iframe width="900" height="800" src="testplotly.html"></iframe> 
+#+END_EXPORT
