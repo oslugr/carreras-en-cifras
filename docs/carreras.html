@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
 <head>
-<title>Tasas académicas</title>
-<!-- 2017-03-04 Sat 19:28 -->
+<title>Carreras en cifras</title>
+<!-- 2017-03-04 Sat 20:08 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Org-mode">
@@ -191,7 +191,11 @@ $(function() {
 </head>
 <body>
 <div id="content" class="container">
-<div class="row"><div class="col-md-9"><h1 class="title">Tasas académicas</h1>
+<div class="row"><div class="col-md-9"><h1 class="title">Carreras en cifras</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Tasas de graduación y abandono</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 Compara las tasas de graduación y abandono en las distintas carreras.
 </p>
@@ -223,9 +227,67 @@ htmlwidgets::saveWidget(p, <span style="color: #95e454;">"tasas.html"</span>)
 </div>
 
 <iframe width="900" height="800" frameBorder="0" src="tasas.html"></iframe> 
-</div><div class="col-md-3"></div></div></div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Proporción de género en personal contratado</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Se expone la proporción de género en el personal contratado. El personal se divide según
+colectivo y grupo dentro del colectivo.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-R"><span style="color: #5F7F5F;"># </span><span style="color: #99968b;">Lectura de las tablas</span>
+personal <span style="color: #e5786d;">&lt;-</span> read.csv(<span style="color: #95e454;">"data/201516PAScontratado.csv"</span>)
+colnames(personal) <span style="color: #e5786d;">&lt;-</span>
+    c(<span style="color: #95e454;">"colectivo"</span>,
+      <span style="color: #95e454;">"grupo"</span>,
+      <span style="color: #95e454;">"genero"</span>,
+      <span style="color: #95e454;">"efectivos"</span>)
+
+personal$nombrecolectivo <span style="color: #e5786d;">&lt;-</span> paste(personal$colectivo, personal$grupo)
+personal <span style="color: #e5786d;">&lt;-</span> personal[,3:5]
+
+<span style="color: #5F7F5F;"># </span><span style="color: #99968b;">Une g&#233;nero para compararlo</span>
+personalMujer <span style="color: #e5786d;">&lt;-</span> personal[personal$genero == <span style="color: #95e454;">"Mujer"</span>, 2:3]
+personalHombre <span style="color: #e5786d;">&lt;-</span> personal[personal$genero == <span style="color: #95e454;">"Hombre"</span>, 2:3]
+personalGenero <span style="color: #e5786d;">&lt;-</span> cbind(personalMujer, personalHombre)[,1:3]
+
+colnames(personalGenero) <span style="color: #e5786d;">&lt;-</span>
+    c(<span style="color: #95e454;">"mujeres"</span>, <span style="color: #95e454;">"colectivo"</span>, <span style="color: #95e454;">"hombres"</span>)
+
+<span style="color: #5F7F5F;"># </span><span style="color: #99968b;">Gr&#225;fico</span>
+<span style="color: #e5786d;">library</span>(plotly)
+p <span style="color: #e5786d;">&lt;-</span> plot_ly(
+       personalGenero, 
+       x = ~mujeres, 
+       y = ~hombres, 
+       text = ~colectivo,
+       size = ~(mujeres+hombres)*100,
+       color = personalGenero$colectivo  <span style="color: #5F7F5F;">#</span><span style="color: #99968b;">rainbow(length(personalGenero$colectivo))</span>
+       )
+
+htmlwidgets::saveWidget(p, <span style="color: #95e454;">"contratados.html"</span>)
+</pre>
+</div>
+
+<iframe width="900" height="800" frameBorder="0" src="contratados.html"></iframe> 
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-1">1. Tasas de graduación y abandono</a></li>
+<li><a href="#sec-2">2. Proporción de género en personal contratado</a></li>
+</ul>
+</div>
+</nav>
+</div></div></div>
 <footer id="postamble" class="">
-<div><p class="date">Created: 2017-03-04 Sat 19:28</p>
+<div><p class="date">Created: 2017-03-04 Sat 20:08</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 26.0.50 (<a href="http://orgmode.org">Org-mode</a> 9.0.5)</p>
 </div>
 </footer>
