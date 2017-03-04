@@ -1,14 +1,60 @@
 ---
 title: "Carreras y género"
-output: html_document
+output: 
+  html_document: 
+    toc: yes
+knit: (function(inputFile, encoding) { 
+      out_dir <- '../docs';
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file=file.path(dirname(inputFile), out_dir, 'carreras-genero.html')) })
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, error = FALSE, results = "markup")
+library(plotly)
+library(colorspace)
+library(data.table)
+```
+
+```{r read_data}
+matriculas <- read.csv("../data/201516matriculasgradoramas.csv")
+names(matriculas) <- c("ramas", "titulacion", "hombres", "mujeres", "total")
 ```
 
 ```{r}
-matriculas <- read.csv("../data/201516matriculasgradoramas.csv")
+curso   <- "2015/2016"
+mujeres <- sum(matriculas$mujeres)
+hombres <- sum(matriculas$hombres)
+total   <- mujeres + hombres
+```
+En el curso `r curso` se han matriculado en la Universidad de Granada un total de **`r total` estudiantes: `r mujeres` mujeres y `r hombres` hombres.**
+
+
+```{r gender_by_branch, echo = F}
+dt <- data.table(matriculas)[, list(hombres = sum(hombres), mujeres = sum(mujeres), total = sum(total)), by=ramas]
+```
+
+## Matriculaciones en ramas por género
+
+```{r}
+knitr::kable(dt)
+```
+
+```{r}
+dtsizes = 200 * dt$total / min(dt$total)
+plot_ly(dt, x = ~mujeres, y = ~hombres, type = "scatter", mode = "markers", text = ~ramas,
+        marker = list(size = dtsizes, sizemode = "area", color = rainbow_hcl(length(dtsizes)))) %>%
+  layout(title = "Matriculaciones en ramas por género")
+```
+
+## Matriculaciones en carreras por género
+
+```{r gender_by_studies, echo = F}
+sizes = 3 * matriculas$total / min(matriculas$total)
+plot_ly(matriculas, x = ~mujeres, y = ~hombres, type = "scatter", mode = "markers", text = ~titulacion,
+        marker = list(size = sizes, sizemode = "area", color = rainbow_hcl(length(sizes)))) %>%
+  layout(title = "Matriculaciones en carreras por género")
 ```
 
 
