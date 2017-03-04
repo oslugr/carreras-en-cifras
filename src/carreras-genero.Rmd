@@ -1,0 +1,12 @@
+---
+title: "Carreras y género"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r}
+matriculas <- read.csv("data/201516matriculasgradoramas.csv")
+```
