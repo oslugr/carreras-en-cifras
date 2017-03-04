@@ -32,7 +32,7 @@ with open(archivo_plantilla, 'r') as plantilla:
     pagina_completa = plantilla.read()
 
 with open(archivo_dibujitos, 'r') as dibujitos:
-    lista_dibujitos = csv.reader(dibujitos,delimiter='\t')
+    lista_dibujitos = csv.reader(dibujitos)
 
     # Nos saltamos la primera línea
     lista_dibujitos.next()
@@ -86,7 +86,7 @@ with open(archivo_salida, 'w') as pagina:
 
     pagina_completa = pagina_completa.replace("[REPLACE_TITULO]", "Todas las carreras")
     pagina_completa = pagina_completa.replace("[REPLACE_MENU]", seleccion)
-    pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
+#    pagina_completa = pagina_completa.replace("[REPLACE_CONTENIDO]", churro_commpleto)
 
     pagina.write(pagina_completa)
 
