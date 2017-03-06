@@ -1,0 +1,78 @@
+#+TITLE: Carreras en cifras
+
+* Tasas de graduación y abandono
+Compara las tasas de graduación y abandono en las distintas carreras.
+
+#+BEGIN_SRC R
+  # Lectura de datos
+  tasas <- read.csv("data/tasasacademicas2015.csv", stringsAsFactors = F)
+  colnames(tasas) <-
+    c("titulacion", 
+      "tasaRendimiento", 
+      "tasaExito", 
+      "tasaAbandonoInicial", 
+      "tasaEficiencia", 
+      "tasaGraduacion", 
+      "tasaAbandono")
+
+  # Dota de formato numérico. Los datos seguían la forma "34,40"
+  numericFormat <- function(input) as.numeric(sub(",",".", input, fixed=TRUE))
+  tasas$tasaExito <- numericFormat(tasas$tasaExito)
+  tasas$tasaGraduacion <- numericFormat(tasas$tasaGraduacion)
+  tasas$tasaAbandono <- numericFormat(tasas$tasaAbandono)
+
+  # Plotly
+  library(plotly)
+  p <- plot_ly(tasas, x = ~tasaGraduacion, y = ~tasaAbandono, text = ~titulacion)
+  htmlwidgets::saveWidget(p, "tasas.html")
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_EXPORT html
+<iframe width="900" height="800" frameBorder="0" src="tasas.html"></iframe> 
+#+END_EXPORT
+
+* Proporción de género en personal contratado
+Se expone la proporción de género en el personal contratado. El personal se divide según
+colectivo y grupo dentro del colectivo.
+
+#+BEGIN_SRC R
+  # Lectura de las tablas
+  personal <- read.csv("data/201516PAScontratado.csv")
+  colnames(personal) <-
+      c("colectivo",
+	"grupo",
+	"genero",
+	"efectivos")
+
+  personal$nombrecolectivo <- paste(personal$colectivo, personal$grupo)
+  personal <- personal[,3:5]
+
+  # Une género para compararlo
+  personalMujer <- personal[personal$genero == "Mujer", 2:3]
+  personalHombre <- personal[personal$genero == "Hombre", 2:3]
+  personalGenero <- cbind(personalMujer, personalHombre)[,1:3]
+
+  colnames(personalGenero) <-
+      c("mujeres", "colectivo", "hombres")
+
+  # Gráfico
+  library(plotly)
+  p <- plot_ly(
+         personalGenero, 
+         x = ~mujeres, 
+         y = ~hombres, 
+         text = ~colectivo,
+         size = ~(mujeres+hombres)*100,
+         color = personalGenero$colectivo  #rainbow(length(personalGenero$colectivo))
+         )
+
+  htmlwidgets::saveWidget(p, "contratados.html")
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_EXPORT html
+<iframe width="900" height="800" frameBorder="0" src="contratados.html"></iframe> 
+#+END_EXPORT

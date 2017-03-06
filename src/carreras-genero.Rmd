@@ -1,0 +1,82 @@
+---
+title: "Carreras en cifras"
+output: 
+  html_document: 
+    number_sections: yes
+    toc: yes
+knit: (function(inputFile, encoding) { 
+      out_dir <- '../docs';
+      rmarkdown::render(inputFile,
+                        encoding=encoding, 
+                        output_file=file.path(dirname(inputFile), out_dir, 'carreras-genero.html')) })
+---
+
+<style>
+#TOC { 
+  border: 1px solid silver;
+  margin: 1em 0;
+  padding: 1em 0 0; 
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, error = FALSE, results = "markup")
+library(plotly)
+library(colorspace)
+library(DT)
+library(data.table)
+```
+
+# Carreras y género
+
+```{r read_data}
+m <- read.csv("../data/201516matriculasgradoramas.csv")
+names(m) <- c("ramas", "titulacion", "hombres", "mujeres", "total")
+matriculas <- cbind(
+  m[,1:2],
+  mujeres = m$mujeres,
+  perc.mujeres = round(100 * m$mujeres / m$total, digits = 2),
+  hombres = m$hombres,
+  perc.hombres = round(100 * m$hombres / m$total, digits = 2),
+  total = m$total
+)
+```
+
+```{r}
+curso   <- "2015/2016"
+mujeres <- sum(matriculas$mujeres)
+hombres <- sum(matriculas$hombres)
+total   <- mujeres + hombres
+```
+En el curso `r curso` se han matriculado en la Universidad de Granada un total de **`r total` estudiantes: `r mujeres` mujeres y `r hombres` hombres.**
+
+## Matriculaciones en ramas por género
+
+```{r gender_by_branch, echo = F}
+dt <- data.table(matriculas)[, list(mujeres = sum(mujeres), perc.mujeres = mean(perc.mujeres), hombres = sum(hombres), perc.hombres = mean(perc.hombres), total = sum(total)), by=ramas]
+```
+
+```{r}
+dtsizes = 200 * dt$total / min(dt$total)
+plot_ly(dt, x = ~mujeres, y = ~hombres, type = "scatter", mode = "markers", text = ~ramas,
+        marker = list(size = dtsizes, sizemode = "area", color = rainbow_hcl(length(dtsizes)))) %>%
+  layout(title = "Matriculaciones en ramas por género")
+```
+
+```{r}
+knitr::kable(dt)
+```
+
+## Matriculaciones en carreras por género
+
+```{r gender_by_studies, echo = F}
+sizes = 3 * matriculas$total / min(matriculas$total)
+plot_ly(matriculas, x = ~mujeres, y = ~hombres, type = "scatter", mode = "markers", text = ~titulacion,
+        marker = list(size = sizes, sizemode = "area", color = rainbow_hcl(length(sizes)))) %>%
+  layout(title = "Matriculaciones en carreras por género")
+```
+
+```{r}
+DT::datatable(matriculas, options = list(pageLength = 10))
+```
+

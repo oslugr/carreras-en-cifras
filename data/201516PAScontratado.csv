@@ -1,0 +1,41 @@
+Colectivo,Grupo,Género,Nº efect.
+PAS Funcionario,A1,Hombre,84
+PAS Funcionario,A1,Mujer,61
+PAS Funcionario,A2,Hombre,100
+PAS Funcionario,A2,Mujer,84
+PAS Funcionario,C1,Hombre,201
+PAS Funcionario,C1,Mujer,295
+PAS Funcionario,C2,Hombre,46
+PAS Funcionario,C2,Mujer,103
+PAS Laboral,G1,Hombre,34
+PAS Laboral,G1,Mujer,49
+PAS Laboral,G2,Hombre,32
+PAS Laboral,G2,Mujer,29
+PAS Laboral,G3,Hombre,301
+PAS Laboral,G3,Mujer,176
+PAS Laboral,G4,Hombre,271
+PAS Laboral,G4,Mujer,451
+PDI Contratado,Contr. Doctor,Hombre,248
+PDI Contratado,Contr. Doctor,Mujer,237
+PDI Contratado,Ayud Doctor,Hombre,55
+PDI Contratado,Ayud Doctor,Mujer,49
+PDI Contratado,Asociad,Hombre,257
+PDI Contratado,Asociad,Mujer,90
+PDI Contratado,Ayudante,Hombre,0
+PDI Contratado,Ayudante,Mujer,0
+PDI Contratado,Asoc. Salud,Hombre,103
+PDI Contratado,Asoc. Salud,Mujer,47
+PDI Contratado,Colaborador,Hombre,70
+PDI Contratado,Colaborador,Mujer,64
+PDI Contratado,Otros,Hombre,8
+PDI Contratado,Otros,Mujer,5
+PDI Funcionario,CU,Hombre,454
+PDI Funcionario,CU,Mujer,126
+PDI Funcionario,CEU,Hombre,24
+PDI Funcionario,CEU,Mujer,8
+PDI Funcionario,TU,Hombre,838
+PDI Funcionario,TU,Mujer,551
+PDI Funcionario,TEU,Hombre,52
+PDI Funcionario,TEU,Mujer,49
+PDI Funcionario,OTROS,Hombre,8
+PDI Funcionario,OTROS,Mujer,11
